@@ -27,7 +27,7 @@ async function getHelloWorld() {
   }
 }
 
-export function Home({ signOut, user }: WithAuthenticatorProps) {
+function Home({ signOut, user }: WithAuthenticatorProps) {
 
   const [apiResponse, setApiResponse] = useState<string>("");
 
