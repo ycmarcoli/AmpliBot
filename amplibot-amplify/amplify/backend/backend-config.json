@@ -1,6 +1,6 @@
 {
   "api": {
-    "helloworldapi": {
+    "amplibotapi": {
       "dependsOn": [
         {
           "attributes": [
@@ -48,6 +48,24 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_HelloWorldFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "HelloWorldFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_HelloWorldFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "HelloWorldFunction"
+        }
+      ]
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "api": {
-    "helloworldapi": {
+    "amplibotapi": {
       "dependsOn": [
         {
           "attributes": [

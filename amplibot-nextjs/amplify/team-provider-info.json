@@ -15,6 +15,12 @@
     "categories": {
       "auth": {
         "amplibot02abecef": {}
+      },
+      "function": {
+        "HelloWorldFunction": {
+          "deploymentBucketName": "amplify-amplibot-dev-3ff81-deployment",
+          "s3Key": "amplify-builds/HelloWorldFunction-633945344467694d5a78-build.zip"
+        }
       }
     }
   }

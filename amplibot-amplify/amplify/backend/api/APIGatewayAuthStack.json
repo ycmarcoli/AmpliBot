@@ -11,7 +11,7 @@
     "env": {
       "Type": "String"
     },
-    "helloworldapi": {
+    "amplibotapi": {
       "Type": "String"
     }
   },
@@ -52,7 +52,7 @@
                       },
                       ":",
                       {
-                        "Ref": "helloworldapi"
+                        "Ref": "amplibotapi"
                       },
                       "/",
                       {
@@ -82,7 +82,7 @@
                       },
                       ":",
                       {
-                        "Ref": "helloworldapi"
+                        "Ref": "amplibotapi"
                       },
                       "/",
                       {
