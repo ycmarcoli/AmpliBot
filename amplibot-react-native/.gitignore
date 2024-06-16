@@ -43,3 +43,7 @@ amplifytools.xcconfig
 
 # expo dev
 android
+ios
+
+# ios
+.DS_Store
