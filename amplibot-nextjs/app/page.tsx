@@ -1,107 +1,19 @@
-"use client"
+import React from 'react';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
 
-import Image from "next/image";
-
-import { Amplify } from 'aws-amplify';
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import config from '@/amplifyconfiguration.json';
-Amplify.configure(config);
-
-import { get } from 'aws-amplify/api';
-import { useState } from "react";
-
-async function getHelloWorld() {
-  try {
-    const restOperation = get({ 
-      apiName: 'amplibotapi',
-      path: '/helloworld' 
-    });
-    const response = await restOperation.response;
-    const json = await response.body.json();
-    return json as string;
-  } catch (e : any) {
-    console.log('GET call failed: ', JSON.parse(e.response.body));
-    return e.response.body;
-  }
-}
-
-function Home({ signOut, user }: WithAuthenticatorProps) {
-
-  const [apiResponse, setApiResponse] = useState<string>("");
-
-  const handleClick = async () => {
-    const data = await getHelloWorld();
-    setApiResponse(data);
-  };
-
+export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Welcome,&nbsp;
-          <code className="font-mono font-bold">{user?.signInDetails?.loginId}</code>
-          <button className="ml-4" onClick={signOut}>Sign out</button>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div className="relative min-h-screen flex flex-col">
+      <div className="absolute inset-0 bg-[url('/amplibot-bg.png')] bg-cover bg-center bg-fixed">
+        <div className="absolute inset-0 bg-primary opacity-35"></div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="relative container mx-auto p-8">
+        <Header />
       </div>
-
-      <div className="mb-32 flex justify-between text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:text-left">
-        <button
-          onClick={() => handleClick()}
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Call lambda function{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </button>
-        {apiResponse && (
-          <div>
-            <p 
-              className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            >
-              {apiResponse}
-            </p>
-          </div>
-        )}
+      <div className="relative flex-grow container mx-auto flex items-center justify-start px-8">
+        <MainContent />
       </div>
-    </main>
+    </div>
   );
 }
-
-export default withAuthenticator(Home);
