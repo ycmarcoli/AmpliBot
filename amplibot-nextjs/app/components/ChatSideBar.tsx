@@ -4,13 +4,28 @@ import React, { useState } from 'react';
 import {
   PiArrowLineLeft,
   PiArrowLineRight,
-  PiChat,
   PiUserCircle,
+  PiPlus,
 } from 'react-icons/pi';
+import { BiCommentAdd } from 'react-icons/bi';
 import UserModal from './UserModal';
 import UserModalSettings from './UserModalSettings';
 
-export default function ChatSideBar({messages} : {messages: Message[]}) {
+interface ChatSideBarProps {
+  messages: Message[];
+  sessions: string[];
+  currentSessionId: string | null;
+  onSessionChange: (sessionId: string) => void;
+  onNewSession: () => Promise<string>;
+}
+
+export default function ChatSideBar({
+  messages,
+  sessions,
+  currentSessionId,
+  onSessionChange,
+  onNewSession,
+}: ChatSideBarProps) {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -48,15 +63,27 @@ export default function ChatSideBar({messages} : {messages: Message[]}) {
                 />
               )}
             </div>
-            {!isMinimized && <PiChat />}
+            {!isMinimized && <BiCommentAdd onClick={onNewSession} className="cursor-pointer" />}
           </div>
           {!isMinimized && (
             <>
               <div className="font-bold text-3xl text-offwhite mx-auto slide-in-left">
                 AMPLIBOT
               </div>
-              <div className="bg-offwhite text-primary font-bold text-normal rounded-xl p-2 truncate overflow-hidden whitespace-nowrap">
-                New Chat
+              <div className="flex flex-col gap-2 overflow-y-auto max-h-96">
+                {sessions.map((sessionId) => (
+                  <div
+                    key={sessionId}
+                    className={`p-2 rounded-xl cursor-pointer ${
+                      sessionId === currentSessionId
+                        ? 'bg-offwhite text-primary'
+                        : 'bg-gray-700 text-offwhite'
+                    }`}
+                    onClick={() => onSessionChange(sessionId)}
+                  >
+                    Session {sessionId.slice(0, 8)}...
+                  </div>
+                ))}
               </div>
             </>
           )}
@@ -72,7 +99,7 @@ export default function ChatSideBar({messages} : {messages: Message[]}) {
         isVisible={isModalVisible}
         onClose={handleCloseModal}
       >
-        <UserModalSettings messages={messages}/>
+        <UserModalSettings messages={messages} />
       </UserModal>
     </div>
   );

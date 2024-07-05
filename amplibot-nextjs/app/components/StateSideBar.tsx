@@ -2,16 +2,18 @@
 
 import React, { useState } from 'react';
 import { PiBug, PiTrash, PiUploadSimple } from 'react-icons/pi';
-import handleExport from '@/app/helper/exporthelper'
+import handleExport from '@/app/helper/exporthelper';
+
+interface StateSideBarProps {
+  currentState: State | undefined;
+  messages: { text: string; isBot: boolean }[] | undefined;
+}
 
 export default function StateSideBar({
   currentState,
   messages,
-}: {
-  currentState: State | undefined;
-  messages: Message[] | undefined;
-}) {
-  const [isMinimized, setIsMinimized] = useState(false);
+}: StateSideBarProps) {
+  const [isMinimized, setIsMinimized] = useState(true);
 
   const handleToggle = () => {
     setIsMinimized(!isMinimized);
@@ -54,7 +56,10 @@ export default function StateSideBar({
               <PiTrash onClick={handleToggle} className="cursor-pointer" />
             </div>
             <div className="flex justify-end p-8 text-3xl text-offwhite">
-              <PiUploadSimple onClick={() => handleExport(messages)} className="cursor-pointer" />
+              <PiUploadSimple
+                onClick={() => messages && handleExport(messages)}
+                className="cursor-pointer"
+              />
             </div>
           </>
         )}
