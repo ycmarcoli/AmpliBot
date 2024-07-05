@@ -46,10 +46,10 @@ export default function ChatSideBar({
       <div
         className={`h-full ${
           isMinimized ? 'w-24' : 'w-80'
-        } bg-primary-dark rounded-3xl flex flex-col justify-between transition-all duration-300`}
+        } bg-primary-dark rounded-3xl flex flex-col transition-all duration-300`}
       >
-        <div className="flex flex-col gap-10 p-8">
-          <div className="flex justify-between text-3xl text-offwhite">
+        <div className="flex flex-col p-8 h-full">
+          <div className="flex justify-between text-3xl text-offwhite mb-10">
             <div className="flex items-center justify-center w-8 h-8">
               {isMinimized ? (
                 <PiArrowLineRight
@@ -63,35 +63,39 @@ export default function ChatSideBar({
                 />
               )}
             </div>
-            {!isMinimized && <BiCommentAdd onClick={onNewSession} className="cursor-pointer" />}
+            {!isMinimized && (
+              <BiCommentAdd onClick={onNewSession} className="cursor-pointer" />
+            )}
           </div>
           {!isMinimized && (
             <>
-              <div className="font-bold text-3xl text-offwhite mx-auto slide-in-left">
+              <div className="font-bold text-3xl text-offwhite mx-auto mb-10 slide-in-left">
                 AMPLIBOT
               </div>
-              <div className="flex flex-col gap-2 overflow-y-auto max-h-96">
-                {sessions.map((sessionId) => (
-                  <div
-                    key={sessionId}
-                    className={`p-2 rounded-xl cursor-pointer ${
-                      sessionId === currentSessionId
-                        ? 'bg-offwhite text-primary'
-                        : 'bg-gray-700 text-offwhite'
-                    }`}
-                    onClick={() => onSessionChange(sessionId)}
-                  >
-                    Session {sessionId.slice(0, 8)}...
-                  </div>
-                ))}
+              <div className="flex-grow overflow-hidden">
+                <div className="h-full overflow-y-auto pr-1">
+                  {sessions.map((sessionId) => (
+                    <div
+                      key={sessionId}
+                      className={`p-2 rounded-xl cursor-pointer overflow-hidden overflow-ellipsis whitespace-nowrap mb-2 ${
+                        sessionId === currentSessionId
+                          ? 'bg-offwhite text-primary'
+                          : 'bg-gray-700 text-offwhite'
+                      }`}
+                      onClick={() => onSessionChange(sessionId)}
+                    >
+                      {sessionId}...
+                    </div>
+                  ))}
+                </div>
               </div>
             </>
           )}
-        </div>
-        <div className="text-3xl text-offwhite p-8">
-          <button onClick={handleProfileClick}>
-            <PiUserCircle />
-          </button>
+          <div className="text-3xl text-offwhite mt-10">
+            <button onClick={handleProfileClick}>
+              <PiUserCircle />
+            </button>
+          </div>
         </div>
       </div>
       <UserModal
