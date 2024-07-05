@@ -50,15 +50,20 @@ function ChatPage() {
       const chatHistory = data.chat_history;
       const state = data.state;
 
-      const reorderedState = reorderState(state);
+      if (chatHistory) {
+        setMessages(
+          chatHistory.map((message: any) => ({
+            text: message.content,
+            isBot: message.role === 'assistant',
+          }))
+        );
+      }
 
-      setMessages(
-        chatHistory.map((message: any) => ({
-          text: message.content,
-          isBot: message.role === 'assistant',
-        }))
-      );
-      setCurrentState(reorderedState);
+      if (state) {
+        const reorderedState = reorderState(state);
+        setCurrentState(reorderedState);
+      }
+
     } catch (err) {
       console.error('Error fetching user data:', err);
     }
