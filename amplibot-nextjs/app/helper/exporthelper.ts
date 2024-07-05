@@ -1,5 +1,8 @@
 export default function handleExport(messages: Message[] | undefined) {
-  if (!messages) return;
+  if (!messages || messages.length === 0) {
+    alert('The chat is empty!');
+    return;
+  }
 
   const formattedMessages: FormattedMessage[] = messages.map((message) => ({
     role: message.isBot ? 'assistant' : 'user',

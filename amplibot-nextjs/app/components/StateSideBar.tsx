@@ -7,16 +7,24 @@ import handleExport from '@/app/helper/exporthelper';
 interface StateSideBarProps {
   currentState: State | undefined;
   messages: { text: string; isBot: boolean }[] | undefined;
+  onDeleteCurrentChat: () => void;
 }
 
 export default function StateSideBar({
   currentState,
   messages,
+  onDeleteCurrentChat,
 }: StateSideBarProps) {
   const [isMinimized, setIsMinimized] = useState(true);
 
   const handleToggle = () => {
     setIsMinimized(!isMinimized);
+  };
+
+  const handleDelete = () => {
+    if (confirm("Are you sure you want to delete the current chat?")) {
+      onDeleteCurrentChat();
+    }
   };
 
   return (
@@ -53,7 +61,7 @@ export default function StateSideBar({
         {isMinimized && (
           <>
             <div className="flex justify-end p-8 text-3xl text-offwhite">
-              <PiTrash onClick={handleToggle} className="cursor-pointer" />
+              <PiTrash onClick={handleDelete} className="cursor-pointer" />
             </div>
             <div className="flex justify-end p-8 text-3xl text-offwhite">
               <PiUploadSimple

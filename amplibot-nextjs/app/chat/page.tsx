@@ -100,6 +100,43 @@ function ChatPage() {
     }
   };
 
+  const deleteCurrentChat = async () => {
+    if (!currentSessionId) return;
+
+    try {
+      const accessToken = await getToken();
+      const response = await fetch(
+        `http://127.0.0.1:8000/sessions/${currentSessionId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete session');
+      }
+
+      // Remove the deleted session from the sessions list
+      setSessions((prevSessions) =>
+        prevSessions.filter((id) => id !== currentSessionId)
+      );
+
+      // Clear current session data
+      setCurrentSessionId(null);
+      setMessages([]);
+      setCurrentState(undefined);
+
+      // Fetch sessions to update the sidebar
+      await fetchSessions();
+    } catch (err) {
+      console.error('Error deleting session:', err);
+    }
+  };
+
   const fetchChatHistory = useCallback(async (sessionId: string) => {
     try {
       const accessToken = await getToken();
@@ -251,7 +288,11 @@ function ChatPage() {
           inputRef={inputRef}
         />
       </div>
-      <StateSideBar messages={messages} currentState={currentState} />
+      <StateSideBar
+        messages={messages}
+        currentState={currentState}
+        onDeleteCurrentChat={deleteCurrentChat}
+      />
     </div>
   );
 }
