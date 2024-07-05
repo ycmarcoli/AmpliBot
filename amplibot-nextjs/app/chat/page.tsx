@@ -34,6 +34,54 @@ function ChatPage() {
     return accessToken;
   };
 
+  const fetchChatHistory = useCallback(async (sessionId: string) => {
+    try {
+      const accessToken = await getToken();
+      const response = await fetch(
+        `http://127.0.0.1:8000/user_data?session_id=${sessionId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Server response:', errorData);
+        throw new Error(JSON.stringify(errorData));
+      }
+
+      const data = await response.json();
+      const chatHistory = data.chat_history;
+      const state = data.state;
+
+      if (chatHistory) {
+        setMessages(
+          chatHistory.map((message: any) => ({
+            text: message.content,
+            isBot: message.role === 'assistant',
+          }))
+        );
+      } else {
+        setMessages([]);
+      }
+
+      if (state) {
+        const reorderedState = reorderState(state);
+        setCurrentState(reorderedState);
+      } else {
+        setCurrentState(undefined);
+      }
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+      setMessages([]);
+      setCurrentState(undefined);
+    }
+  }, []);
+
   const fetchSessions = useCallback(async () => {
     try {
       const accessToken = await getToken();
@@ -59,7 +107,7 @@ function ChatPage() {
     } catch (err) {
       console.error('Error fetching sessions:', err);
     }
-  }, [currentSessionId]);
+  }, [currentSessionId, fetchChatHistory]);
 
   const createNewSession = async (): Promise<string> => {
     try {
@@ -136,54 +184,6 @@ function ChatPage() {
       console.error('Error deleting session:', err);
     }
   };
-
-  const fetchChatHistory = useCallback(async (sessionId: string) => {
-    try {
-      const accessToken = await getToken();
-      const response = await fetch(
-        `http://127.0.0.1:8000/user_data?session_id=${sessionId}`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Server response:', errorData);
-        throw new Error(JSON.stringify(errorData));
-      }
-
-      const data = await response.json();
-      const chatHistory = data.chat_history;
-      const state = data.state;
-
-      if (chatHistory) {
-        setMessages(
-          chatHistory.map((message: any) => ({
-            text: message.content,
-            isBot: message.role === 'assistant',
-          }))
-        );
-      } else {
-        setMessages([]);
-      }
-
-      if (state) {
-        const reorderedState = reorderState(state);
-        setCurrentState(reorderedState);
-      } else {
-        setCurrentState(undefined);
-      }
-    } catch (err) {
-      console.error('Error fetching user data:', err);
-      setMessages([]);
-      setCurrentState(undefined);
-    }
-  }, []);
 
   const sendPrompt = async (prompt: string) => {
     setIsWaitingForResponse(true);

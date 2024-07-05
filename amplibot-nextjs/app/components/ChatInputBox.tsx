@@ -43,7 +43,7 @@ export default function ChatInputBox({
       const newHeight = Math.min(inputRef.current.scrollHeight, 9 * 16); // Calculate the height and cap it at 9rem (9 * 16px)
       inputRef.current.style.height = `${newHeight}px`; // Set to the scroll height
     }
-  }, [inputValue]);
+  }, [inputValue, inputRef]);
 
   return (
     <div className="w-full flex justify-center items-center mt-8">
