@@ -22,10 +22,6 @@ export default function StateSideBar({
   };
 
   const handleDelete = () => {
-    if (!messages || messages.length === 0) {
-      alert('The chat is empty!');
-      return;
-    }
     if (confirm("Are you sure you want to delete the current chat?")) {
       onDeleteCurrentChat();
     }
