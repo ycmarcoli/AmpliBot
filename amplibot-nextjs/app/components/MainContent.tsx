@@ -13,7 +13,7 @@ export default function MainContent() {
   return (
     <div className="text-offwhite text-left">
       <h1 className="text-5xl font-bold mb-4">
-        Superpower your real estate
+        Amplify your real estate
         <br />
         business with AI chatbot solutions.
       </h1>

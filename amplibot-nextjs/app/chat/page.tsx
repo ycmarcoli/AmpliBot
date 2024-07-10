@@ -13,6 +13,7 @@ import ChatHistory from '../components/ChatHistory';
 import StateSideBar from '../components/StateSideBar';
 import reorderState from '../helper/statehelper';
 import '../styles/amplify-styles.css';
+import Image from 'next/image';
 
 Amplify.configure(config);
 
@@ -298,4 +299,23 @@ function ChatPage() {
   );
 }
 
-export default withAuthenticator(ChatPage);
+export default withAuthenticator(ChatPage, {
+  components: {
+    Header: () => (
+      <div className="flex items-center justify-center mb-8 px-4">
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24">
+          <Image
+            src="/amplibot-icon.png"
+            alt="Amplibot Logo"
+            layout="fill"
+            objectFit="contain"
+            priority
+          />
+        </div>
+        <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl text-offwhite">
+          AMPLIBOT
+        </h1>
+      </div>
+    ),
+  },
+});

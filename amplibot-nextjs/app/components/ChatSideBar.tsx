@@ -10,6 +10,7 @@ import {
 import { BiCommentAdd } from 'react-icons/bi';
 import UserModal from './UserModal';
 import UserModalSettings from './UserModalSettings';
+import Image from 'next/image';
 
 interface ChatSideBarProps {
   messages: Message[];
@@ -69,8 +70,19 @@ export default function ChatSideBar({
           </div>
           {!isMinimized && (
             <>
-              <div className="font-bold text-3xl text-offwhite mx-auto mb-10 slide-in-left">
-                AMPLIBOT
+              <div className="flex items-center justify-center">
+                <div className="relative w-12 h-12">
+                  <Image
+                    src="/amplibot-icon.png"
+                    alt="Amplibot Logo"
+                    layout="fill"
+                    objectFit="contain"
+                    priority
+                  />
+                </div>
+                <h1 className="font-bold text-2xl md:text-3xl text-offwhite">
+                  AMPLIBOT
+                </h1>
               </div>
               <div className="flex-grow overflow-hidden">
                 <div className="h-full overflow-y-auto pr-1">
