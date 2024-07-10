@@ -18,13 +18,6 @@ function UserModalSettings({messages} : {messages: Message[]}) {
   return (
     <div className="flex flex-col gap-6">
       <div className="text-primary flex flex-col gap-2">
-        <div className="text-2xl font-bold">General</div>
-        <div className="flex justify-between">
-          <div>Theme</div>
-          <div>Dropdown Menu</div>
-        </div>
-      </div>
-      <div className="text-primary flex flex-col gap-2">
         <div className="text-2xl font-bold">Data</div>
         <div className="flex justify-between">
           <div>Export Data (JSON)</div>
@@ -44,12 +37,6 @@ function UserModalSettings({messages} : {messages: Message[]}) {
         </div>
         <div className="flex justify-between">
           <div>Delete all chat</div>
-          <div className="border-2 border-red-400 rounded-lg py-1 px-4 text-red-400">
-            Delete
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <div>Delete account</div>
           <div className="border-2 border-red-400 rounded-lg py-1 px-4 text-red-400">
             Delete
           </div>
