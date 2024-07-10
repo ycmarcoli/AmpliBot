@@ -21,7 +21,7 @@ function UserModalSettings({messages} : {messages: Message[]}) {
         <div className="text-2xl font-bold">Data</div>
         <div className="flex justify-between">
           <div>Export Data (JSON)</div>
-          <button onClick={() => handleExport(messages)}>Export</button>
+          <button className='bg-primary px-4 py-1 text-offwhite rounded-lg hover:bg-primary-dark' onClick={() => handleExport(messages)}>Export</button>
         </div>
       </div>
       <div className="text-primary flex flex-col gap-2">
@@ -35,12 +35,12 @@ function UserModalSettings({messages} : {messages: Message[]}) {
             Log out
           </button>
         </div>
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
           <div>Delete all chat</div>
           <div className="border-2 border-red-400 rounded-lg py-1 px-4 text-red-400">
             Delete
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
