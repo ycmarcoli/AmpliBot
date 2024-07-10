@@ -5,7 +5,7 @@ import MainContent from './components/MainContent';
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col">
-      <div className="absolute inset-0 bg-[url('/amplibot-bg.png')] bg-cover bg-center bg-fixed">
+      <div className="absolute inset-0 bg-[url('/amplibot-bg.jpg')] bg-cover bg-center bg-fixed">
         <div className="absolute inset-0 bg-primary opacity-35"></div>
       </div>
       <div className="relative container mx-auto p-8">
