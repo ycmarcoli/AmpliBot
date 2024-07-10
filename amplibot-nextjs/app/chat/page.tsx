@@ -12,6 +12,7 @@ import ChatInputBox from '../components/ChatInputBox';
 import ChatHistory from '../components/ChatHistory';
 import StateSideBar from '../components/StateSideBar';
 import reorderState from '../helper/statehelper';
+import '../styles/amplify-styles.css';
 
 Amplify.configure(config);
 
