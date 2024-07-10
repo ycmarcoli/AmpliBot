@@ -48,7 +48,7 @@ export default function ChatSideBar({
           isMinimized ? 'w-24' : 'w-80'
         } bg-primary-dark rounded-3xl flex flex-col transition-all duration-300`}
       >
-        <div className="flex flex-col p-8 h-full">
+        <div className="flex flex-col justify-between p-8 h-full">
           <div className="flex justify-between text-3xl text-offwhite mb-10">
             <div className="flex items-center justify-center w-8 h-8">
               {isMinimized ? (
