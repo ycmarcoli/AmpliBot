@@ -17,6 +17,12 @@ AMPLIBOT is an intelligent web-based chatbot powered by a locally-run open-sourc
 - Real-time interactions
 - Session management for personalized user experiences
 
+## 📚 Documentation
+
+Design document
+
+You can access the design document here: [AMPLIBOT Design Document](./llm-design-doc.pdf)
+
 ## 🛠 Tech Stack
 
 - Frontend: [Next.js](https://nextjs.org/)
