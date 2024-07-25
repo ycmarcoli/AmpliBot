@@ -97,7 +97,7 @@ AMPLIBOT/
 
 ## 👥 Authors
 
-- [Marco Li](https://github.com/ycmarcoli@gmail.com)
+- [Marco Li](https://github.com/ycmarcoli)
 
 ## 🙏 Acknowledgements
 
